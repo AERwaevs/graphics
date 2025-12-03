@@ -52,9 +52,13 @@ VulkanViewport::VulkanViewport( Window* window )
     _instance( vk::Instance::get_or_create() ),
     _surface( create<vk::Surface>
     (
-        _instance,
+        _instance.get(),
+#if defined( AER_PLATFORM_WINDOWS )
+        std::any_cast<HWND>(window->properties().nativeWindow)
+#elif defined( AER_PLATFORM_LINUX )
         std::any_cast<xcb_connection_t*>(window->properties().systemConnection),
         std::any_cast<xcb_window_t>(window->properties().nativeWindow)
+#endif
     )),
     _physical_device( _instance->physical_device( VK_QUEUE_GRAPHICS_BIT, _surface.get() ) ),
     _device( create<vk::Device>

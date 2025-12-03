@@ -56,7 +56,7 @@ target_link_libraries( graphics
     PUBLIC
         aer::base
         aer::vulkan
-        $<$<BOOL:${WIN32}>:win32>
+        #$<$<BOOL:${WIN32}>:win32>
         #$<$<BOOL:${LINUX}>:linux>
         $<$<BOOL:${ANDROID}>:android>
         $<$<BOOL:${IOS}>:ios>
