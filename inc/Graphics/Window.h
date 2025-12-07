@@ -3,7 +3,7 @@
 #include <Base/Base.h>
 #include <Base/EventListener.h>
 
-#include "Renderer.h"
+#include "VulkanRenderer.h"
 #include "Viewport.h"
 
 namespace aer
@@ -36,7 +36,8 @@ public:
     const   WindowProperties&   properties() const { return _properties; }
 
             void                Update(){};
-            Window( const WindowProperties& props ) : _properties( props ) {};
+            Window( const WindowProperties& props )
+            : _properties( props ), _renderer( create<VulkanRenderer>() ), _viewport( create<Viewport>( this )) {};
     virtual ~Window() = default;
 protected:
             ref_ptr<Renderer>   _renderer;
